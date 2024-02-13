@@ -7,8 +7,9 @@ author:
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This research endeavors to scrutinize the well-being of individuals within the prison system, focusing on the prevalence of physical diseases, mental health issues, and mortality rates among incarcerated populations. The prison environment presents unique challenges that can significantly impact the overall health of individuals, making it imperative to investigate the multifaceted dimensions of prisoners' well-being. Utilizing data collected over the past [insert number of years], this study employs a comprehensive analysis to discern patterns, trends, and potential variations in the health outcomes of prisoners. By examining the intersection of physical and mental health alongside mortality rates, the research aims to contribute valuable insights into the current state of prisoners' well-being. This analysis not only serves to inform our understanding of the challenges faced by incarcerated individuals but also provides a foundation for evidence-based policy recommendations aimed at fostering improved conditions within correctional facilities. Through this exploration, we strive to contribute to the ongoing dialogue surrounding the intersection of criminal justice and public health, emphasizing the importance of compassionate and effective strategies for promoting the well-being of those within the prison system."
 format: pdf
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -114,4 +115,5 @@ practices that prioritize the dignity, safety, and general well-being of people 
 
 
 # Additional data details
+
 # References
