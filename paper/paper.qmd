@@ -1,1 +1,117 @@
+---
+title: "Racial Force Probe"
+subtitle: "The study looks on a single scientific argument about whether or not certain police officers discriminate against people based on their race. "
+author:
+  - Monica Sainani
+  - Kaavya Kalani
+thanks: "Code and data are available at: LINK."
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
 
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+# Introduction
+Health and Safety of Prisoners Today**
+
+Individuals' health and safety in jail are critical aspects of the criminal justice system
+that must be thoroughly examined. As we negotiate the complicated world of prisons in contemporary America,
+it becomes clear that the physical and emotional health of jailed people is a major problem. This study aims to give a
+complete analysis of the health difficulties encountered by inmates today, diving into the areas of physical health,
+emotional well-being, death rates, and the subtle distinctions between male and female prisoners.
+
+Physical Health of Prisoners: Unveiling a Disturbing Reality
+
+The first aspect of our investigation is a thorough examination of the physical health of convicts.
+Recent discoveries in America portray a troubling picture, demonstrating that a sizable proportion of offenders enter
+correctional facilities with a variety of pre-existing physical health issues.
+The jail environment, which is marked by overcrowding, restricted access to healthcare, and a lack of preventive
+measures, frequently exacerbates these problems. According to studies, the prison population has a high prevalence of
+chronic diseases such as diabetes, hypertension, and infectious diseases, emphasizing the critical need to focus on
+the physical well-being of jailed people.
+
+The sad fact is that convicts have far lower health outcomes than the general population.
+Access to medical care in prisons remains a recurrent issue, resulting in delayed diagnoses and insufficient treatment.
+The cumulative effect of these conditions adds to a cycle of declining physical health among inmates, raising not just
+ethical problems but also public health dangers when they are eventually released into society.
+
+Mental Health: The Silent Crisis Behind Bars
+
+Moving beyond physical health, the second half of our investigation focuses on the sometimes-ignored topic of mental
+well-being in the prison system. Mental health difficulties among inmates have reached crisis proportions, with a slew
+of obstacles compounding the psychological toll of incarceration. Suicide rates among convicts have become a major
+problem, underlining the critical need for mental health services in correctional facilities.
+
+Substance addiction exacerbates the mental health problem since many inmates take drugs to cope with the stresses of
+confinement. The absence of comprehensive addiction treatment services in jails reinforces the cycle of substance misuse,
+exacerbating mental health issues and impeding successful recovery attempts.
+
+The mental health crisis among inmates emphasizes the significance of treating the underlying causes of psychological
+anguish in correctional facilities. Initiatives to provide mental health support, provide counselling services, and
+establish drug addiction treatment programs are critical to interrupting the cycle of mental health worsening among inmates.
+
+
+From Suicides to Mortality Rates: Connecting the Dots
+
+The third feature of our investigation focuses on the relationship between suicides and prison death rates.
+Suicides in correctional facilities are not isolated instances; they are inextricably linked to larger concerns such as
+mental health, poor healthcare, and the harsh reality of incarceration. Beyond suicides, inmates are always at risk of
+death from a variety of causes, including murders, infectious infections, and other health difficulties.
+
+Understanding the interconnectedness of these mortality variables is critical for designing holistic measures to improve
+prisoner safety and well-being. It demands a comprehensive strategy that tackles both immediate concerns, such as
+suicide prevention, as well as the larger structural factors that contribute to higher prison death rates.
+
+**Gender Disparities in Prison Health: Unveiling Unique Challenges**
+
+In the third portion of our investigation, we examine the subtle disparities in the health experiences of male and female
+convicts. While many health issues are common, gender-specific characteristics play an important role in defining the health
+outcomes of jailed people. Women inmates, for example, frequently confront particular reproductive health challenges,
+as well as an increased risk of sexual assault while in correctional facilities.
+
+Understanding and treating gender differences in prison health is critical for establishing focused therapies that
+meet the unique requirements of both male and female inmates. Recognizing the unique issues experienced by each gender
+group is an important step toward establishing a more equal and compassionate approach to healthcare in the prison system.
+
+**Conclusion: A Call for Holistic Reforms**
+
+To summarize, the health and safety of inmates today require immediate attention
+and thorough improvements. The complex network of physical health issues, mental health crises,
+mortality risks, and gender imbalances inside the jail system needs a comprehensive strategy.
+Addressing these concerns necessitates not just urgent actions, such as increased healthcare access and mental health
+assistance, but also a larger commitment to rethinking the purpose and consequences of incarceration on individual
+well-being. This article intends to add to the continuing discussion about prison health by arguing for policies and
+practices that prioritize the dignity, safety, and general well-being of people housed in correctional institutions.
+
+
+
+# Data {#sec-data}
+
+
+
+
+# Model
+
+# Results
+
+# Discussion
+
+## Weaknesses and next steps
+
+# Appendix {-}
+
+
+# Additional data details
+# References
