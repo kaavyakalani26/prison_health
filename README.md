@@ -1,7 +1,8 @@
 # Prison Health
 
 ## Overview
-This repo ....
+This paper conducts a thorough analysis of the health and safety concerns that inmates confront in modern America. The study attempts to explore the varied characteristics of inmates' health by examining physical and mental well-being, death rates, and gender inequities. The research aims to give significant insights toward encouraging comprehensive improvements inside the prison system by addressing contemporary findings in physical and mental health, suicide rates, mortality causes, and the particular issues experienced by male and female inmates.
+
 
 To use this folder, click the green "Code" button", then "Download ZIP". 
 
