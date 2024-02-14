@@ -4,6 +4,7 @@ subtitle: "The study looks on a single scientific argument about whether or not 
 author:
   - Monica Sainani
   - Kaavya Kalani
+  - Aamishi Avarsekar
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
