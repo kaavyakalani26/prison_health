@@ -1,11 +1,10 @@
 ---
 title: "Racial Force Probe"
-subtitle: "The study looks on a single scientific argument about whether or not certain police officers discriminate against people based on their race. "
 author:
   - Monica Sainani
   - Kaavya Kalani
   - Aamishi Avarsekar
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/kaavyakalani26/prison_health.git and replication aspects are available at: https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index"
 date: today
 date-format: long
 abstract: "This research endeavors to scrutinize the well-being of individuals within the prison system, focusing on the prevalence of physical diseases, mental health issues, and mortality rates among incarcerated populations. The prison environment presents unique challenges that can significantly impact the overall health of individuals, making it imperative to investigate the multifaceted dimensions of prisoners' well-being. Utilizing data collected over the past [insert number of years], this study employs a comprehensive analysis to discern patterns, trends, and potential variations in the health outcomes of prisoners. By examining the intersection of physical and mental health alongside mortality rates, the research aims to contribute valuable insights into the current state of prisoners' well-being. This analysis not only serves to inform our understanding of the challenges faced by incarcerated individuals but also provides a foundation for evidence-based policy recommendations aimed at fostering improved conditions within correctional facilities. Through this exploration, we strive to contribute to the ongoing dialogue surrounding the intersection of criminal justice and public health, emphasizing the importance of compassionate and effective strategies for promoting the well-being of those within the prison system."
@@ -20,6 +19,23 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
+#### Preamble ####
+# Purpose: Read the cleaned dataset to use it for the analysis
+# Author: Kaavya Kalani, Monica Sainani, Aamishi Avarsekar
+# Date: 14 February 2024
+# Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca, aamishi.avarsekar@mail.utoronto.ca
+# License: MIT
+# Pre-requisites: run scripts/01-data_cleaning.R
+
+#### Workspace setup ####
+# install.packages("tidyverse")
+# install.packages("knitr")
+# install.packages("here")
+# install.packages("ggplot2")
+# install.packages("readxl")
+
+library(ggplot2)
+library(readxl)
 library(tidyverse)
 library(palmerpenguins)
 #### Preamble ####
@@ -48,10 +64,12 @@ library(here)
 library(gdata)
 library(dplyr)
 library(haven)
+library(knitr)
+library(here)
 ```
 
-
 # Introduction
+
 Health and Safety of Prisoners Today
 
 Individuals' health and safety in jail are critical aspects of the criminal justice system
@@ -123,16 +141,70 @@ assistance, but also a larger commitment to rethinking the purpose and consequen
 well-being(Ghazanfari, H., & Farokhzadian, J. (2022)).This article intends to add to the continuing discussion about prison health by arguing for policies and
 practices that prioritize the dignity, safety, and general well-being of people housed in correctional institutions.
 
+# Data
+
+## Source
+For this analysis we have used multiple datasets. This paper uses the datasets available in the replication package of the original paper. The author of the original paper has collated a large range of files from multiple sources and we will be using some of the datasets from this collation. The raw datasets obtained from the replication package and cleaned and combined to form the datasets for this paper
+
+## Methodology
+For this paper, the datasets were cleaned and analysed using the statistical programming software R [@citeR] along with the help tidyverse [@citeTidyverse], knitr [@citeKnitr], ggplot2 [@citeGgplot], here [@citeHere], zoo [@citeZoo], readxl [@citeRead], writexl [@citeWrite] and janitor [@citeJanitor].
+
+## Datasets
 
 
-# Data {#sec-data}
+### cleaned_health_data_by_year.csv
+This dataset is obtained by cleaning and combining the raw mass-incarceration.xlsx file and msfp0116stt02data.csv.
 
+mass-incarceration.xlsx contains three sheets from which we will be using sheet 1 which contains time series data for incarceration from 1925-2019; each year is associated with the number of imprisoned individuals per 100k people, calculated from the total population and total number of inmates. We clean this file to get the counts of prisoners for 2006-2016.
 
+msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. For our analysis we will not be considering 2001 but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over.
 
+Cleaning and combining these lead to our  cleaned_health_data_by_year.csv which contains:
+- Year (between 2006 to 2016 inclusive)
+- Disease (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Prisoner_Count (the number of prisoners in that year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
 
-# Model
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses.
+
+### cleaned_health_data_race.csv and cleaned_health_data_gender.csv
+This dataset is obtained by cleaning the raw msfp0116stt09data.csv file.
+
+msfp0116stt09data.csv contains counts for  causes of deaths of the prisoners for the years 2001, 2006-2016 but segmented by demographic factors instead of time, such as gender, race, and age. For our analysis, we will be using the stats segmented by gender and race.
+
+The information segmented by race leads to cleaned_health_data_race.csv which contains:
+- x1 (The race of the prisoner)
+- Cause (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
+
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America in 2001 or between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses. The race of the person is classified as Black, Hispanic, White or Other
+
+The information segmented by race leads to cleaned_health_data_gender.csv which contains:
+- x1 (The gender of the prisoner)
+- Cause (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
+
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America in 2001 or between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses. The gender of the person is either Male or Female in this dataset.
+
+### cleaned_covid19_data.csv
+This dataset is obtained by cleaning the raw covidts01.csv file.
+
+covidts01.csv contains the collective number of new cases and case rates per 100,000 among the incarcerated, prison staff, and the general population. The numbers are recorded on a daily basis from April 22, 2020 to the end of August 2020. For our analysis, we just look at the number of new cases per 100,000.
+
+- Cleaning of this file leads to cleaned_covid19_data.csv which contains:
+- Date (The date of the new case)
+- New_cases_per_100k (The number of new cases recorded on the specific date per 100k)
+- Group (The group of people the case belonged to)
+
+A person becomes an entry in this dataset if they were incarcerated or prison staff in any of the prisons or the general population in the United States of America between April 22, 2020 to the end of August 2020 inclusive and contracted Covid-19.
+
+We will now analyse these datasets to uncover trends and draw conclusions.
 
 # Results
+
 
 Based on the original paper’s findings, we decided to further investigate the health and general well-being of prisoners and trends of diseases within prison, causes of death and also the trends of COVID-19 across a 7-day period.
 
@@ -143,6 +215,7 @@ Based on the original paper’s findings, we decided to further investigate the 
 #| fig-cap: Causes of deaths among the prisoners
 
 # Load cleaned data from CSV
+
 health_data_by_year_long_prop <- read.csv(file=here("data/analysis_data/cleaned_health_data_by_year.csv"), header = TRUE, stringsAsFactors = FALSE)
 
 # Create the plot
@@ -153,6 +226,7 @@ ggplot(health_data_by_year_long_prop, aes(x = as.numeric(Year), y = Proportion, 
        y = "Proportion of cases",
        color = "Disease") +
   theme_minimal()
+
 
 ```
 Figure 1 compares shows the cause of death among prisoners due to diseases. In order to accurately investigate, we adjusted the number of deaths caused by a particular disease by the total number of prisoners recorded for that year. This accounts for the differences in the number of deaths recorded between each cause.
@@ -251,11 +325,78 @@ Figure 4 compares the causes of deaths in prison with respect to the different r
 
 ## Discussion
 
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-covid
+#| fig-cap: Covid trends in the jail
+
+# Load cleaned data
+ts_data <- read.csv("data/analysis_data/cleaned_covid19_data.csv", header = TRUE, stringsAsFactors = FALSE)
+
+# Create the figure using ggplot2 with solid lines
+ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
+  geom_line(size = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
+  scale_x_date(date_labels = "%B", date_breaks = "1 month", limits = c(min(ts_data$date), max(ts_data$date))) +
+  scale_y_continuous(limits = c(0, 150), breaks = seq(0, 150, 25)) +
+  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases per 100,000 Among
+Those in Prison, Prison Staff, and in the General Population: May to September
+2020") +
+  theme_minimal() +
+  geom_vline(xintercept = as.numeric(as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01"))),
+             linetype = "dashed", color = "gray") +
+  annotate("text", x = as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01")),
+           y = 150, label = c("April 2020", "May 2020", "June 2020", "July 2020", "August 2020", "September 2020"),
+           vjust = -0.5, hjust = 0, color = "gray") +
+  scale_color_manual(values = c("blue", "red", "green"))
+
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-gender
+#| fig-cap: Causes of deaths among the prisoners by gender
+
+# Load cleaned data
+health_demographic_data_clean <- read_csv("data/analysis_data/cleaned_health_data_gender.csv")
+
+# Plot the proportions graph using geom_bar with position = "dodge"
+ggplot(health_demographic_data_clean, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Gender",
+       y = "Proportion") +
+  scale_fill_discrete(labels = cause_mapping) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-race
+#| fig-cap: Causes of deaths among the prisoners by race
+
+# Load cleaned data from CSV
+race_health_data_long <- read.csv("data/analysis_data/cleaned_health_data_race.csv", header = TRUE, stringsAsFactors = FALSE)
+
+# Create a bar plot showing proportions with black borders
+ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +  # Add black borders
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Category",
+       y = "Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Discussion
+
 ## Weaknesses and next steps
 
-# Appendix {-}
-
-
-# Additional data details
+# Appendix
 
 # References

@@ -24,7 +24,7 @@ library(zoo)
 
 # Figure 2 replication
 
-x <- read_dta("../data/spi86to16.dta")
+x <- read_dta("data/raw_data/spi86to16.dta")
 x <- x[x$admit == 1, ]
 
 # Create data frames for each program
@@ -64,7 +64,7 @@ State Prisoners, by Region") +
 pop <- c(1217352, 412783, 328239523)  # population denominators
 
 # Read CSV file with the correct date format
-x <- read.csv("../data/covidts01.csv", header = TRUE, stringsAsFactors = FALSE)
+x <- read.csv("data/raw_data/covidts01.csv", header = TRUE, stringsAsFactors = FALSE)
 x$date <- as.Date(x$date, format = "%m/%d/%Y")  # Specify the correct date format
 
 # Calculate rolling averages
@@ -99,13 +99,13 @@ Those in Prison, Prison Staff, and in the General Population: May to September
 # Figure 4 replication
 
 # Read state covid data
-x <- read.csv("../data/all-states-history.csv", header = TRUE)
+x <- read.csv("data/raw_data/all-states-history.csv", header = TRUE)
 
 # Data from 1/22/21
 x122 <- x[x$date == "2021-01-22",]
 
 # Read state population data
-pop <- read.csv("../data/statepop.csv", header = FALSE)
+pop <- read.csv("data/raw_data/statepop.csv", header = FALSE)
 
 # Matching states
 ind <- match(x122$state, pop[,2])
@@ -115,7 +115,7 @@ x122$pop <- pop[ind,3]
 x122$ccr <- x122$positive / (x122$pop * 1e6)
 
 # Read prison covid data
-x1 <- read.csv("../data/COVID-19 Cases in State and Federal Prison Systems.csv", header = TRUE)
+x1 <- read.csv("data/raw_data/COVID-19 Cases in State and Federal Prison Systems.csv", header = TRUE)
 
 # Data cleaning
 x1 <- lapply(x1, function(i) { sub(",", "", i) })
@@ -156,7 +156,3 @@ Population, by State: March 2020 to January 2021") +
   scale_x_continuous(limits = c(0, 800)) +
   scale_y_continuous(breaks = 1:nrow(ccr), labels = ccr$state, position = "right") +
   guides(color = guide_legend(title = NULL, override.aes = list(shape = c(16, 16))))
-
-
-
-
