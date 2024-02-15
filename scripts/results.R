@@ -5,6 +5,7 @@ install.packages("tidyverse")
 install.packages("janitor")
 install.packages("arrow")
 install.packages("gridExtra")
+install.packages("readxl")
 
 library(arrow)
 library(knitr)
@@ -13,10 +14,108 @@ library(lubridate)
 library(opendatatoronto)
 library(tidyverse)
 library(gridExtra)
+library(readxl)
 
+cause_mapping <- c(
+  "cancer" = "Cancer",
+  "heart_disease" = "Heart Disease",
+  "liver_disease" = "Liver Disease",
+  "respiratory_disease" = "Respiratory Disease",
+  "aids_related" = "Aid related",
+  "all_other_illnesses" = "All other illnesses",
+  "suicide" = "Suicide",
+  "drug_alcohol_intoxication" = "Drug/Alcohol Intoxication",
+  "accident" = "Accident",
+  "homicide_d" = "Homicide"
+)
+
+# prisoner's proportion:
+prisoner_stats_data <- read_excel('data/mass_incarceration.xlsx')
+prisoner_necessary_year_data <-  prisoner_stats_data %>% filter(Year %in% c("2006", "2007", "2008","2009", "2010", 
+                                                                            "2011", "2012", "2013", "2014", "2015", "2016"))
+prisoner_stats_data_cleaned <- 
+  prisoner_necessary_year_data |>
+  select("Year", "Prison") |>
+  set_names("Year", "Prisoner_Count")
+
+tibble(prisoner_stats_data_cleaned)
 
 # general health and conditions in prisons
 health_data_count_by_year <- read_csv('data/msfp0116stt02data.csv')
+health_data_by_year_clean <-
+  clean_names(health_data_count_by_year) |>
+  select("x1", "x2006", "x2007", "x2008","x2009", "x2010", 
+         "x2011", "x2012", "x2013", "x2014", "x2015", "x2016") |>
+  set_names("Disease", "2006", "2007", "2008","2009", "2010", 
+         "2011", "2012", "2013", "2014", "2015", "2016")
+
+health_data_by_year <- health_data_by_year_clean %>% filter(Disease %in% c("Cancer", "Heart disease", "Liver disease",
+                                                                     "Respiratory disease", "AIDS-related", "All other illnessess", "Suicide",
+                                                                     "Drug/alcohol intoxication", "Accident", "Homicide", "Other causes"))
+# transform
+health_data_by_year_long <- pivot_longer(health_data_by_year, cols = -Disease, names_to = "Year", values_to = "Count")
+
+merged_data <- merge(health_data_by_year_long, prisoner_stats_data_cleaned, by = "Year")
+
+
+health_data_by_year_long_prop <- merged_data %>%
+  group_by(Disease) %>%
+  mutate(Proportion = Count / sum(Count))
+
+ggplot(health_data_by_year_long_p, aes(x = Disease, y = Proportion, fill = Disease)) +
+  geom_bar(stat = "identity", position = "stack", size = 0.8) +  # Add black borders
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Gender",
+       y = "Proportion") +
+  scale_fill_discrete(labels = cause_mapping) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+data_long <- pivot_longer(health_data_by_year, cols = -Disease, names_to = "Year", values_to = "Cases")
+
+
+ggplot(data_long, aes(x = as.numeric(Year), y = Cases, color = Disease)) +
+  geom_line() +
+  labs(title = "Trends of Diseases by Year",
+       x = "Year",
+       y = "Number of Cases",
+       color = "Disease") +
+  theme_minimal()
+
+ggplot(data_long, aes(x = as.numeric(Year), y = Cases, color = Disease)) +
+  geom_line(size = 1.5) +  # Adjust the size parameter for thicker lines
+  labs(title = "Trends of Diseases by Year",
+       x = "Year",
+       y = "Number of Cases",
+       color = "Disease") +
+  theme_minimal()
+
+ggplot(health_data_by_year_long_prop, aes(x = Year, y = Proportion, color = Disease)) +
+  geom_line() +
+  labs(title = "Proportion of Diseases Among Prisoners Over Years",
+       x = "Year",
+       y = "Proportion") +
+  theme_minimal()
+
+head(health_data_by_year)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 health_data_count_by_demographics <- read_csv('data/msfp0116stt09data.csv')
 
 health_demographic_data_clean <-
