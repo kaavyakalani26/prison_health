@@ -55,49 +55,32 @@ health_data_by_year <- health_data_by_year_clean %>% filter(Disease %in% c("Canc
 # transform
 health_data_by_year_long <- pivot_longer(health_data_by_year, cols = -Disease, names_to = "Year", values_to = "Count")
 
+# this includes the prisoner count for each year
 merged_data <- merge(health_data_by_year_long, prisoner_stats_data_cleaned, by = "Year")
 
-
+# generating proportions: health_data_by_year_long by proportion
 health_data_by_year_long_prop <- merged_data %>%
-  group_by(Disease) %>%
-  mutate(Proportion = Count / sum(Count))
+  mutate(Proportion = Count / Prisoner_Count)
 
-ggplot(health_data_by_year_long_p, aes(x = Disease, y = Proportion, fill = Disease)) +
-  geom_bar(stat = "identity", position = "stack", size = 0.8) +  # Add black borders
+# can remove if we don't need this graph
+ggplot(health_data_by_year_long_prop, aes(x = Disease, y = Proportion, fill = Disease)) +
+  geom_bar(stat = "identity", position = "stack", size = 0.8) +  
   labs(title = "Proportions of Causes of Death by Category",
-       x = "Gender",
+       x = "Disease",
        y = "Proportion") +
   scale_fill_discrete(labels = cause_mapping) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-data_long <- pivot_longer(health_data_by_year, cols = -Disease, names_to = "Year", values_to = "Cases")
 
-
-ggplot(data_long, aes(x = as.numeric(Year), y = Cases, color = Disease)) +
-  geom_line() +
+ggplot(health_data_by_year_long_prop, aes(x = as.numeric(Year), y = Proportion, color = Disease)) +
+  geom_line(size = 1.0) +  
   labs(title = "Trends of Diseases by Year",
        x = "Year",
-       y = "Number of Cases",
+       y = "Proportion of cases",
        color = "Disease") +
   theme_minimal()
 
-ggplot(data_long, aes(x = as.numeric(Year), y = Cases, color = Disease)) +
-  geom_line(size = 1.5) +  # Adjust the size parameter for thicker lines
-  labs(title = "Trends of Diseases by Year",
-       x = "Year",
-       y = "Number of Cases",
-       color = "Disease") +
-  theme_minimal()
-
-ggplot(health_data_by_year_long_prop, aes(x = Year, y = Proportion, color = Disease)) +
-  geom_line() +
-  labs(title = "Proportion of Diseases Among Prisoners Over Years",
-       x = "Year",
-       y = "Proportion") +
-  theme_minimal()
-
-head(health_data_by_year)
 
 
 
