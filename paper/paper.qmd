@@ -25,7 +25,7 @@ bibliography: references.bib
 # Date: 14 February 2024
 # Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca, aamishi.avarsekar@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: run scripts/01-download_data.R followed by scripts/02-data_cleaning.R
+# Pre-requisites: run scripts/01-data_cleaning.R
 
 #### Workspace setup ####
 # install.packages("tidyverse")
