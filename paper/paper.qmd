@@ -41,7 +41,6 @@ library(knitr)
 library(here)
 ```
 
-
 # Introduction
 
 Health and Safety of Prisoners Today
@@ -118,39 +117,62 @@ practices that prioritize the dignity, safety, and general well-being of people 
 # Data
 
 ## Source
-For this analysis we have used multiple datasets. This paper uses the datasets available in the replication package of the original paper. The author of the original paper has collated a large range of files from multiple sources and we will be using some of the datasets from this collation.
+For this analysis we have used multiple datasets. This paper uses the datasets available in the replication package of the original paper. The author of the original paper has collated a large range of files from multiple sources and we will be using some of the datasets from this collation. The raw datasets obtained from the replication package and cleaned and combined to form the datasets for this paper
 
 ## Methodology
 For this paper, the datasets were cleaned and analysed using the statistical programming software R [@citeR] along with the help tidyverse [@citeTidyverse], knitr [@citeKnitr], ggplot2 [@citeGgplot], here [@citeHere], zoo [@citeZoo], readxl [@citeRead], writexl [@citeWrite] and janitor [@citeJanitor].
 
 ## Datasets
-### mass-incarceration.xlsx
 
-This dataset is a compilation of data collated by the original paper’s author from different sources:
-- Sourcebook of Criminal Justice Statistics
-- Bureau of Justice Statistics Report
-- Jail Inmates in 2018
-- U.S. Population FRED Data
-- World Prison Population Data
-- Western B. and Pettit B data
 
-There are three sheets in this file, we will be using sheet 1 which contains time series data for incarceration from 1925-2019; each year is associated with the number of imprisoned individuals per 100k people, calculated from the total population and total number of inmates.
-We will use this dataset to get the counts of prisons for different years. The Prison variable in the dataset is that variable.
+### cleaned_health_data_by_year.csv
+This dataset is obtained by cleaning and combining the raw mass-incarceration.xlsx file and msfp0116stt02data.csv.
 
-### msfp0116stt02data.csv and msfp0116stt09data.csv
-The original paper’s author got this data from
-- the BJS publication by E. Ann Carson, Mary P. Cowhig (2020), Mortality in State And Federal Prisons
-- 2001-2016 Statistical Tables (NCJ 251920)
+mass-incarceration.xlsx contains three sheets from which we will be using sheet 1 which contains time series data for incarceration from 1925-2019; each year is associated with the number of imprisoned individuals per 100k people, calculated from the total population and total number of inmates. We clean this file to get the counts of prisoners for 2006-2016.
 
-msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. These causes include blah blah blah. For our analysis we will not be considering 2001 but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over
+msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. For our analysis we will not be considering 2001 but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over.
 
-msfp0116stt09data.csv contains counts for the same conditions but segmented by demographic factors instead of time, such as gender, race, and age. For our analysis, we will be using the stats segmented by gender and race.
+Cleaning and combining these lead to our  cleaned_health_data_by_year.csv which contains:
+- Year (between 2006 to 2016 inclusive)
+- Disease (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Prisoner_Count (the number of prisoners in that year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
 
-### covidts01.csv
-The original paper’s author got this data from
-- Covid Prison Project (https://covidprisonproject.com) by Lauren BrinkelyRubinstein (UNC Chapel Hill) and Kathryn Nowotny (University of Miami).
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses.
 
-This dataset contains the collective number of new cases and case rates per 100,000 among the incarcerated, prison staff, and the general population. The numbers are recorded on a daily basis from April 22, 2020 to the end of August 2020.
+### cleaned_health_data_race.csv and cleaned_health_data_gender.csv
+This dataset is obtained by cleaning the raw msfp0116stt09data.csv file.
+
+msfp0116stt09data.csv contains counts for  causes of deaths of the prisoners for the years 2001, 2006-2016 but segmented by demographic factors instead of time, such as gender, race, and age. For our analysis, we will be using the stats segmented by gender and race.
+
+The information segmented by race leads to cleaned_health_data_race.csv which contains:
+- x1 (The race of the prisoner)
+- Cause (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
+
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America in 2001 or between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses. The race of the person is classified as Black, Hispanic, White or Other
+
+The information segmented by race leads to cleaned_health_data_gender.csv which contains:
+- x1 (The gender of the prisoner)
+- Cause (the cause of death of the prisoner)
+- Count (the number of prisoners who died due the corresponding cause in the corresponding year)
+- Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
+
+A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America in 2001 or between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses. The gender of the person is either Male or Female in this dataset.
+
+### cleaned_covid19_data.csv
+This dataset is obtained by cleaning the raw covidts01.csv file.
+
+covidts01.csv contains the collective number of new cases and case rates per 100,000 among the incarcerated, prison staff, and the general population. The numbers are recorded on a daily basis from April 22, 2020 to the end of August 2020. For our analysis, we just look at the number of new cases per 100,000.
+
+- Cleaning of this file leads to cleaned_covid19_data.csv which contains:
+- Date (The date of the new case)
+- New_cases_per_100k (The number of new cases recorded on the specific date per 100k)
+- Group (The group of people the case belonged to)
+
+A person becomes an entry in this dataset if they were incarcerated or prison staff in any of the prisons or the general population in the United States of America between April 22, 2020 to the end of August 2020 inclusive and contracted Covid-19.
 
 We will now analyse these datasets to uncover trends and draw conclusions.
 
