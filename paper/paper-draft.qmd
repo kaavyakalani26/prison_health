@@ -1,15 +1,13 @@
 ---
-title: "Prison Health"
+title: "Racial Force Probe"
 author:
   - Monica Sainani
   - Kaavya Kalani
   - Aamishi Avarsekar
 thanks: "Code and data are available at: https://github.com/kaavyakalani26/prison_health.git and replication aspects are available at: https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index"
 date: today
-header-includes:
-    - \usepackage{setspace}\doublespacing
 date-format: long
-abstract: "This research endeavors to scrutinize the well-being of individuals within the prison system, focusing on the prevalence of physical diseases, mental health issues, and mortality rates among incarcerated populations. The prison environment presents unique challenges that can significantly impact the overall health of individuals, making it imperative to investigate the multifaceted dimensions of prisoners' well-being. Utilizing data collected over the past 15 years, this study employs a comprehensive analysis to discern patterns, trends, and potential variations in the health outcomes of prisoners. By examining the intersection of physical and mental health alongside mortality rates, the research aims to contribute valuable insights into the current state of prisoners' well-being. This analysis not only serves to inform our understanding of the challenges faced by incarcerated individuals but also provides a foundation for evidence-based policy recommendations aimed at fostering improved conditions within correctional facilities. Through this exploration, we strive to contribute to the ongoing dialogue surrounding the intersection of criminal justice and public health, emphasizing the importance of compassionate and effective strategies for promoting the well-being of those within the prison system."
+abstract: "This research endeavors to scrutinize the well-being of individuals within the prison system, focusing on the prevalence of physical diseases, mental health issues, and mortality rates among incarcerated populations. The prison environment presents unique challenges that can significantly impact the overall health of individuals, making it imperative to investigate the multifaceted dimensions of prisoners' well-being. Utilizing data collected over the past [insert number of years], this study employs a comprehensive analysis to discern patterns, trends, and potential variations in the health outcomes of prisoners. By examining the intersection of physical and mental health alongside mortality rates, the research aims to contribute valuable insights into the current state of prisoners' well-being. This analysis not only serves to inform our understanding of the challenges faced by incarcerated individuals but also provides a foundation for evidence-based policy recommendations aimed at fostering improved conditions within correctional facilities. Through this exploration, we strive to contribute to the ongoing dialogue surrounding the intersection of criminal justice and public health, emphasizing the importance of compassionate and effective strategies for promoting the well-being of those within the prison system."
 format: pdf
 toc: true
 number-sections: true
@@ -159,7 +157,7 @@ This dataset is obtained by cleaning and combining the raw mass-incarceration.xl
 
 mass-incarceration.xlsx contains three sheets from which we will be using sheet 1 which contains time series data for incarceration from 1925-2019; each year is associated with the number of imprisoned individuals per 100k people, calculated from the total population and total number of inmates. We clean this file to get the counts of prisoners for 2006-2016.
 
-msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. For our analysis we will not be considering 2001, but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over.
+msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. For our analysis we will not be considering 2001 but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over.
 
 Cleaning and combining these lead to our  cleaned_health_data_by_year.csv which contains:
 - Year (between 2006 to 2016 inclusive)
@@ -206,8 +204,9 @@ A person becomes an entry in this dataset if they were incarcerated or prison st
 We will now analyse these datasets to uncover trends and draw conclusions.
 
 # Results
-Based on the original paper’s findings, we decided to further investigate the health and general well-being of prisoners and trends of diseases within prison, causes of death and also the trends of COVID-19 across a 7-day period.
 
+
+Based on the original paper’s findings, we decided to further investigate the health and general well-being of prisoners and trends of diseases within prison, causes of death and also the trends of COVID-19 across a 7-day period.
 
 ```{r}
 #| message: false
@@ -221,16 +220,16 @@ health_data_by_year_long_prop <- read.csv(file=here("data/analysis_data/cleaned_
 
 # Create the plot
 ggplot(health_data_by_year_long_prop, aes(x = as.numeric(Year), y = Proportion, color = Disease)) +
-  geom_line(linewidth = 1.0) +
+  geom_line(size = 1.0) +
   labs(title = "Trends of Diseases by Year",
        x = "Year",
        y = "Proportion of cases",
        color = "Disease") +
   theme_minimal()
-```
 
-#Figure 1 
-compares shows the cause of death among prisoners due to diseases. In order to accurately investigate, we adjusted the number of deaths caused by a particular disease by the total number of prisoners recorded for that year. This accounts for the differences in the number of deaths recorded between each cause.
+
+```
+Figure 1 compares shows the cause of death among prisoners due to diseases. In order to accurately investigate, we adjusted the number of deaths caused by a particular disease by the total number of prisoners recorded for that year. This accounts for the differences in the number of deaths recorded between each cause.
 
 By observing the trends in Figure 1, we can see that the deaths due to cancer and heart diseases is significantly higher compared with other causes. The trends for death due to homicide saw a slight decrease between the later years which is opposite to the rate of deaths caused by suicide. While deaths caused by respiratory diseases remain fairly consistent, there is a gradual increase throughout the years. We can also observe that there is a steady decline in the deaths caused by AIDS. Deaths caused by accident remain fairly uncommon with only a very slight increase in 2012. However, the deaths caused by heart disease remained fairly high yet consistent but saw a steep incline after 2012. The deaths caused by cancer has the highest rate. To take a closer look at this, we can investigate the age-group of the prisoners. 
 
@@ -252,10 +251,12 @@ ts_data$date <- as.Date(ts_data$date, format = "%Y-%m-%d")
 
 # Create the figure using ggplot2 with solid lines
 ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
-  geom_line(linewidth = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
+  geom_line(size = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
   scale_x_date(date_labels = "%B", date_breaks = "1 month", limits = c(min(ts_data$date), max(ts_data$date))) +
   scale_y_continuous(limits = c(0, 150), breaks = seq(0, 150, 25)) +
-  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases") +
+  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases per 100,000 Among
+#Those in Prison, Prison Staff, and in the General Population: May to September
+#2020") +
   theme_minimal() +
   geom_vline(xintercept = as.numeric(as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01"))),
              linetype = "dashed", color = "gray") +
@@ -265,11 +266,7 @@ ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
   scale_color_manual(values = c("blue", "red", "green"))
 
 ```
-
-#figure 2
-
-
-
+result 2
 
 ```{r}
 #| message: false
@@ -308,7 +305,7 @@ Figure 3 compares the cause of death due to diseases between female and male pri
 ```{r}
 #| message: false
 #| echo: false
-#| label: fig-death-vs-race-2
+#| label: fig-death-vs-race
 #| fig-cap: Causes of deaths among the prisoners by race
 
 # Load cleaned data from CSV
@@ -326,13 +323,75 @@ ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
 
 Figure 4 compares the causes of deaths in prison with respect to the different races of the prisoners. It can be observed that the cause of deaths are unimodular across all races but they have different peaks in their modes. Amongst Black prisoners, heart diseases have the highest death rate while in Hispanic, White and other races, cancer has the highest death rate. Amongst the identified races, Hispanic prisoners have the highest suicide and homicide rates and also respiratory diseases. It can also be observed that Black prisoners have the highest rate of aids-related deaths, and White prisoners have the highest rate of deaths caused by heart diseases. While deaths caused by drug/alcohol intoxication remains comparatively low across all races, it is the highest for Hispanic prisoners. Amongst other races, it can be observed that suicide is the highest recorded reason for death which could open way to an analyses for racism within prisons as well.
 
-
-
-
 ## Discussion
 
 ```
 
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-covid
+#| fig-cap: Covid trends in the jail
+
+# Load cleaned data
+ts_data <- read.csv("data/analysis_data/cleaned_covid19_data.csv", header = TRUE, stringsAsFactors = FALSE)
+
+# Create the figure using ggplot2 with solid lines
+ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
+  geom_line(size = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
+  scale_x_date(date_labels = "%B", date_breaks = "1 month", limits = c(min(ts_data$date), max(ts_data$date))) +
+  scale_y_continuous(limits = c(0, 150), breaks = seq(0, 150, 25)) +
+  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases per 100,000 Among
+Those in Prison, Prison Staff, and in the General Population: May to September
+2020") +
+  theme_minimal() +
+  geom_vline(xintercept = as.numeric(as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01"))),
+             linetype = "dashed", color = "gray") +
+  annotate("text", x = as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01")),
+           y = 150, label = c("April 2020", "May 2020", "June 2020", "July 2020", "August 2020", "September 2020"),
+           vjust = -0.5, hjust = 0, color = "gray") +
+  scale_color_manual(values = c("blue", "red", "green"))
+
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-gender
+#| fig-cap: Causes of deaths among the prisoners by gender
+
+# Load cleaned data
+health_demographic_data_clean <- read_csv("data/analysis_data/cleaned_health_data_gender.csv")
+
+# Plot the proportions graph using geom_bar with position = "dodge"
+ggplot(health_demographic_data_clean, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Gender",
+       y = "Proportion") +
+  scale_fill_discrete(labels = cause_mapping) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-race
+#| fig-cap: Causes of deaths among the prisoners by race
+
+# Load cleaned data from CSV
+race_health_data_long <- read.csv("data/analysis_data/cleaned_health_data_race.csv", header = TRUE, stringsAsFactors = FALSE)
+
+# Create a bar plot showing proportions with black borders
+ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +  # Add black borders
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Category",
+       y = "Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
 # Discussion
 
