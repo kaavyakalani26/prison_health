@@ -139,7 +139,7 @@ practices that prioritize the dignity, safety, and general well-being of people 
 #| label: fig-death-vs-gender
 #| fig-cap: Causes of deaths among the prisoners by gender
 
-health_data_count_by_demographics <- read_csv('data/msfp0116stt09data.csv')
+health_data_count_by_demographics <- read_csv(file = here("data/raw_data/msfp0116stt09data.csv"))
 
 health_demographic_data_clean <-
   clean_names(health_data_count_by_demographics) |>
@@ -192,7 +192,7 @@ ggplot(gender_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
 #| fig-cap: Causes of deaths among the prisoners by race
 
 # Read data
-health_data_count_by_demographics <- read_csv('data/msfp0116stt09data.csv')
+health_data_count_by_demographics <- read_csv(file = here("data/raw_data/msfp0116stt09data.csv"))
 
 # Clean and organize data
 health_demographic_data_clean <-
