@@ -21,5 +21,7 @@ The repo is structured as:
 
 - ```scripts/99-replication.R``` contains the R script for the replication of Figure 2, 3 and 4 from https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.35.4.97
 
+- ```other/literature``` contains the pdf of the paper used to replication and inspiration for our paper.
+
 ## Statement on LLM usage
 No LLMs were used for any aspect of this work.
