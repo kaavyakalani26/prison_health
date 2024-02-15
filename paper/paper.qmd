@@ -1,6 +1,5 @@
 ---
 title: "Racial Force Probe"
-subtitle: "The study looks on a single scientific argument about whether or not certain police officers discriminate against people based on their race. "
 author:
   - Monica Sainani
   - Kaavya Kalani
@@ -20,12 +19,31 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
+#### Preamble ####
+# Purpose: Read the cleaned dataset to use it for the analysis
+# Author: Kaavya Kalani, Monica Sainani, Aamishi Avarsekar
+# Date: 14 February 2024
+# Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca, aamishi.avarsekar@mail.utoronto.ca
+# License: MIT
+# Pre-requisites: run scripts/01-download_data.R followed by scripts/02-data_cleaning.R
+
+#### Workspace setup ####
+# install.packages("tidyverse")
+# install.packages("knitr")
+# install.packages("here")
+# install.packages("ggplot2")
+# install.packages("janitor")
+
+library(ggplot2)
 library(tidyverse)
-library(palmerpenguins)
+library(knitr)
+library(here)
+library(janitor)
 ```
 
 
 # Introduction
+
 Health and Safety of Prisoners Today
 
 Individuals' health and safety in jail are critical aspects of the criminal justice system
@@ -97,24 +115,142 @@ assistance, but also a larger commitment to rethinking the purpose and consequen
 well-being(Ghazanfari, H., & Farokhzadian, J. (2022)).This article intends to add to the continuing discussion about prison health by arguing for policies and
 practices that prioritize the dignity, safety, and general well-being of people housed in correctional institutions.
 
-
-
-# Data {#sec-data}
-
-
-
-
-# Model
+# Data
 
 # Results
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-overall-death
+#| fig-cap: Causes of deaths among the prisoners
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-covid
+#| fig-cap: Covid trends in the jail
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-gender
+#| fig-cap: Causes of deaths among the prisoners by gender
+
+health_data_count_by_demographics <- read_csv('data/msfp0116stt09data.csv')
+
+health_demographic_data_clean <-
+  clean_names(health_data_count_by_demographics) |>
+  select("x1", "cancer", "heart_disease", "liver_disease",
+         "respiratory_disease", "aids_related", "all_other_illnesses", "suicide",
+         "drug_alcohol_intoxication", "accident", "homicide_d")
+
+# Create a mapping for all causes
+cause_mapping <- c(
+  "cancer" = "Cancer",
+  "heart_disease" = "Heart Disease",
+  "liver_disease" = "Liver Disease",
+  "respiratory_disease" = "Respiratory Disease",
+  "aids_related" = "Aid related",
+  "all_other_illnesses" = "All other illnesses",
+  "suicide" = "Suicide",
+  "drug_alcohol_intoxication" = "Drug/Alcohol Intoxication",
+  "accident" = "Accident",
+  "homicide_d" = "Homicide"
+)
+
+# Rename the causes in the dataset
+health_demographic_data_clean <- health_demographic_data_clean %>%
+  rename_with(~ cause_mapping[.], -x1)
+
+gender_health_data <- health_demographic_data_clean %>% filter(x1 %in% c("Male", "Female"))
+
+gender_health_data_long <- pivot_longer(gender_health_data, cols = -x1, names_to = "Cause", values_to = "Count")
+
+# Calculate proportions within each category
+gender_health_data_long <- gender_health_data_long %>%
+  group_by(x1) %>%
+  mutate(Proportion = Count / sum(Count))
+
+# Plot the proportions graph using geom_bar with position = "fill"
+ggplot(gender_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +  # Add black borders
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Gender",
+       y = "Proportion") +
+  scale_fill_discrete(labels = cause_mapping) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-death-vs-race
+#| fig-cap: Causes of deaths among the prisoners by race
+
+# Read data
+health_data_count_by_demographics <- read_csv('data/msfp0116stt09data.csv')
+
+# Clean and organize data
+health_demographic_data_clean <-
+  clean_names(health_data_count_by_demographics) |>
+  select("x1", "cancer", "heart_disease", "liver_disease",
+         "respiratory_disease", "aids_related", "all_other_illnesses", "suicide",
+         "drug_alcohol_intoxication", "accident", "homicide_d")
+
+# Pivot data to long format
+health_demographic_data_long <- pivot_longer(health_demographic_data_clean, cols = -x1, names_to = "Cause", values_to = "Count")
+
+# Filter data for specific demographics (e.g., "Male" and "Female")
+filtered_df <- health_demographic_data_clean[health_demographic_data_clean$x1 %in% c("Male", "Female"),]
+
+# Filter data for specific races (e.g., "White", "Black", "Hispanic", "Other")
+race_health_data <- health_demographic_data_clean %>% filter(x1 %in% c("White", "Black", "Hispanic", "Other"))
+
+# Pivot data to long format for race
+race_health_data_long <- pivot_longer(race_health_data, cols = -x1, names_to = "Cause", values_to = "Count")
+
+# Calculate proportions instead of counts
+race_health_data_long <- race_health_data_long %>%
+  group_by(x1) %>%
+  mutate(Proportion = Count / sum(Count))
+
+# Create a mapping for all causes
+cause_mapping <- c(
+  "cancer" = "Cancer",
+  "heart_disease" = "Heart Disease",
+  "liver_disease" = "Liver Disease",
+  "respiratory_disease" = "Respiratory Disease",
+  "aids_related" = "Aid related",
+  "all_other_illnesses" = "All other illnesses",
+  "suicide" = "Suicide",
+  "drug_alcohol_intoxication" = "Drug/Alcohol Intoxication",
+  "accident" = "Accident",
+  "homicide_d" = "Homicide"
+)
+
+# Rename the causes in the dataset
+race_health_data_long <- race_health_data_long %>%
+  mutate(Cause = cause_mapping[as.character(Cause)])
+
+# Create a bar plot showing proportions with black borders
+ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +  # Add black borders
+  labs(title = "Proportions of Causes of Death by Category",
+       x = "Category",
+       y = "Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 # Discussion
 
 ## Weaknesses and next steps
 
-# Appendix {-}
-
-
-# Additional data details
+# Appendix
 
 # References
