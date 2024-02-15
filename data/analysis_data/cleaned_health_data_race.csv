@@ -1,0 +1,41 @@
+"x1","Cause","Count","Proportion"
+"White","Cancer",7988,0.290842890952121
+"White","Heart Disease",7300,0.265792827234662
+"White","Liver Disease",2746,0.0999817950118332
+"White","Respiratory Disease",1886,0.06866921536501
+"White","Aid related",417,0.0151829601310759
+"White","All other illnesses",3980,0.144911705807391
+"White","Suicide",1951,0.0710358638266885
+"White","Drug/Alcohol Intoxication",436,0.0158747496814127
+"White","Accident",299,0.0108865829237211
+"White","Homicide",462,0.0168214090660841
+"Black","Cancer",5069,0.278455284552846
+"Black","Heart Disease",5113,0.280872335750385
+"Black","Liver Disease",1113,0.0611404087013843
+"Black","Respiratory Disease",1073,0.0589430894308943
+"Black","Aid related",1240,0.0681168973851901
+"Black","All other illnesses",3268,0.179520984399033
+"Black","Suicide",672,0.036914963744232
+"Black","Drug/Alcohol Intoxication",148,0.00813008130081301
+"Black","Accident",149,0.00818501428257526
+"Black","Homicide",359,0.0197209404526478
+"Hispanic","Cancer",1220,0.213249431917497
+"Hispanic","Heart Disease",1065,0.186156266386995
+"Hispanic","Liver Disease",949,0.1658800908932
+"Hispanic","Respiratory Disease",306,0.0534871525957001
+"Hispanic","Aid related",196,0.0342597447998602
+"Hispanic","All other illnesses",1063,0.185806677154344
+"Hispanic","Suicide",522,0.0912427897220766
+"Hispanic","Drug/Alcohol Intoxication",161,0.0281419332284566
+"Hispanic","Accident",67,0.0117112392938298
+"Hispanic","Homicide",172,0.0300646740080406
+"Other","Cancer",224,0.22741116751269
+"Other","Heart Disease",203,0.206091370558376
+"Other","Liver Disease",123,0.124873096446701
+"Other","Respiratory Disease",45,0.0456852791878173
+"Other","Aid related",19,0.0192893401015228
+"Other","All other illnesses",150,0.152284263959391
+"Other","Suicide",142,0.144162436548223
+"Other","Drug/Alcohol Intoxication",36,0.0365482233502538
+"Other","Accident",14,0.0142131979695431
+"Other","Homicide",29,0.0294416243654822
