@@ -24,4 +24,4 @@ The repo is structured as:
 - ```other/literature``` contains the pdf of the paper used to replication and inspiration for our paper.
 
 ## Statement on LLM usage
-No LLMs were used for any aspect of this work.
+The simulations were written with the help of ChatGPT 3.5 and the entire chat history is available in ```other/LLM/usage.txt```
