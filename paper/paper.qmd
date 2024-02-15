@@ -33,12 +33,14 @@ bibliography: references.bib
 # install.packages("here")
 # install.packages("ggplot2")
 # install.packages("janitor")
+# install.packages("zoo")
 
 library(ggplot2)
 library(tidyverse)
 library(knitr)
 library(here)
 library(janitor)
+library(zoo)
 ```
 
 
@@ -131,6 +133,41 @@ practices that prioritize the dignity, safety, and general well-being of people 
 #| echo: false
 #| label: fig-covid
 #| fig-cap: Covid trends in the jail
+
+pop <- c(1217352, 412783, 328239523)  # population denominators
+
+# Read CSV file with the correct date format
+x <- read.csv("data/raw_data/covidts01.csv", header = TRUE, stringsAsFactors = FALSE)
+x$date <- as.Date(x$date, format = "%m/%d/%Y")  # Specify the correct date format
+
+# Calculate rolling averages
+pp <- 1e5 * zoo::rollapply((x$pp_cases[-1] - x$pp_cases[-132]), width = 7, FUN = mean) / pop[1]
+sp <- 1e5 * zoo::rollapply((x$sp_cases[-1] - x$sp_cases[-132]), width = 7, FUN = mean) / pop[2]
+gp <- 1e5 * zoo::rollapply((x$gp_cases[-1] - x$gp_cases[-132]), width = 7, FUN = mean) / pop[3]
+
+# Combine data into a data frame
+ts_data <- data.frame(
+  date = rep(x$date[-(1:7)], 3),
+  new_cases_per_100k = c(pp, sp, gp),
+  group = rep(c("Incarcerated", "Prison Staff", "General Population"), each = length(pp))
+)
+
+# Create the figure using ggplot2 with solid lines
+ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
+  geom_line(size = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
+  scale_x_date(date_labels = "%B", date_breaks = "1 month", limits = c(min(ts_data$date), max(ts_data$date))) +
+  scale_y_continuous(limits = c(0, 150), breaks = seq(0, 150, 25)) +
+  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases per 100,000 Among
+Those in Prison, Prison Staff, and in the General Population: May to September
+2020") +
+  theme_minimal() +
+  geom_vline(xintercept = as.numeric(as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01"))),
+             linetype = "dashed", color = "gray") +
+  annotate("text", x = as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01")),
+           y = 150, label = c("April 2020", "May 2020", "June 2020", "July 2020", "August 2020", "September 2020"),
+           vjust = -0.5, hjust = 0, color = "gray") +
+  scale_color_manual(values = c("blue", "red", "green"))
+
 ```
 
 ```{r}
