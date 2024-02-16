@@ -243,6 +243,42 @@ ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
 @fig-death-vs-race compares the causes of deaths in prison with respect to the different races of the prisoners. Among Black prisoners, heart diseases have the highest death rate while in Hispanic, White and other races, cancer has the highest death rate. Among the identified races, Hispanic prisoners have the highest suicide and homicide rates and also respiratory diseases. It can also be observed that Black prisoners have the highest rate of aids-related deaths, much higher than any of the other races. Another interesting trend that can be observed is that suicide is much higher as the reason for death for other races than Black, Hispanic and White prisoners.
 
 # Discussion
+In this paper, the issue of mortality rates among U.S. inmates is analyzed and conducted.
+There are multiple datasets that have been utilized to investigate demographic differences, causes of death,
+and the potential impact of prison conditions. We also looked at the impact of the COVID-19 pandemic.
+The study digs deeper into a complex analysis of mortality trends, drawing from datasets that include information
+on gender, race, and specific causes of death. We have explored three different categories of the issue with the
+wellbeing of prisoners.
+
+The first is the different causes of death in the incarcerated in the categories of gender(Male/Female).
+We found Cancer to cause most of the deaths in Male and Female prisoners. Heart disease was almost 0.25 times more
+prevalent in Male prisoners than in Female prisoners. A significant difference is found in the rates of suicide between
+the two genders. Female prisoners are more likely to commit suicide. This indicates a huge concern in the community of
+prisoners. It shadows upon the mental health resources that are not provided to those in need. Men are more prone to
+having disputes in the cell and hence more likely to see deaths due to homicides[@Levin_2024].
+Our dataset from 10 years ago still supports this argument that is being discussed today.
+
+Secondly, we analyzed a data set that shows us the different causes of death in prisoners
+categorized by race. We found that the prisoners of the black community were a lot more affected by aids than any other
+race. This also directly coincides with the fact today that incarcerated individuals with HIV represented about 2.2%
+of the U.S. total, but got only 0.73% of HIV antivirals, a threefold difference, researchers estimated [@Murez_2023].
+Expanding on the suicide rates in prisons from this dataset we also noticed that the prisoners from other races have
+lost their lives to suicide more than black, hispanic and white prisoners. We have seen this ongoing trend in
+today's society as well where with depression, estimated prevalence was 15% in inmates compared to 7.64% in others.
+Severe mental illness was 13.12% compared to 4.89% in others [@Murez_2023]. We also see from this dataset and our
+analysis that hispanic prisoners have way more liver disease related deaths than any other race. The lack of health care in prisons is affecting the people inside and out at an alarming rate.
+
+
+
+
+Our third data set shadows upon the negative impacts that COVID-19 had upon the prisoners in America. Due to the
+conditions of the prisons and the lack of care for the inmates, from our dataset we analyzed that the number of cases
+in prisoners were significantly higher than the number of cases outside prison. Despite considering the lack of
+healthcare and sanitary methods that should have been implemented in these isolated environments, these numbers were
+shocking. During the most difficult time of Covid-19 where the highest number of people were affected, if 70 people
+were affected outside, almost 100 people were affected inside these prisons. In a statistical study done in 2022,
+it was concluded that from the end of February 2020 to the end of February 2021, a total of 196 correctional staff
+in state and federal prisons died as a result of COVID-19[@NadelE.AnnCarson_2022].
 
 ## Weaknesses
 While our analysis of prisoner mortality provides valuable insights, it is important to acknowledge certain limitations. The binary representation of gender in the original paper oversimplifies a complex spectrum, neglecting nuances beyond the male-female binary.
