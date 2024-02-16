@@ -1,8 +1,7 @@
-# Prison Health
+# Behind Bars: Insights into the Wellbeing of U.S. Prisoners
 
 ## Overview
-This paper conducts a thorough analysis of the health and safety concerns that inmates confront in modern America. The study attempts to explore the varied characteristics of inmates' health by examining physical and mental well-being, death rates, and gender inequities. The research aims to give significant insights toward encouraging comprehensive improvements inside the prison system by addressing contemporary findings in physical and mental health, suicide rates, mortality causes, and the particular issues experienced by male and female inmates.
-
+This research explores the causes and trends of prisoner deaths in the United States giving insights into their wellbeing in the prisons. We examine these rates both from a comprehensive standpoint and delve into demographic breakdowns, specifically considering gender and race. The trends uncovered in this paper establish a foundation for further investigations into systemic problems and healthcare disparities in correctional environments.
 
 To use this folder, click the green "Code" button", then "Download ZIP". 
 
