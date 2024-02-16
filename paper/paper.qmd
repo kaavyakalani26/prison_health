@@ -270,7 +270,6 @@ analysis that hispanic prisoners have way more liver disease related deaths than
 
 
 
-
 Our third data set shadows upon the negative impacts that COVID-19 had upon the prisoners in America. Due to the
 conditions of the prisons and the lack of care for the inmates, from our dataset we analyzed that the number of cases
 in prisoners were significantly higher than the number of cases outside prison. Despite considering the lack of
@@ -279,6 +278,23 @@ shocking. During the most difficult time of Covid-19 where the highest number of
 were affected outside, almost 100 people were affected inside these prisons. In a statistical study done in 2022,
 it was concluded that from the end of February 2020 to the end of February 2021, a total of 196 correctional staff
 in state and federal prisons died as a result of COVID-19[@NadelE.AnnCarson_2022].
+
+
+In conclusion, the findings illuminate an alarming increase in prisoner mortality rates, particularly attributed to cancer and heart
+diseases. The persistent rise raises concerns about the overall well-being of incarcerated individuals. The vulnerability
+ of inmates to COVID-19, as evidenced by the significantly higher infection rates among prisoners, highlights the
+ urgent need for enhanced preventive measures and healthcare within correctional facilities. The study
+ uncovers pronounced gender and racial differences in prison mortality. Males exhibit higher mortality
+ rates across various causes, emphasizing the need for gender-specific healthcare strategies. Racial differences
+ reveal distinct health challenges faced by different groups, necessitating tailored interventions.  Exploring
+ the influence of specific prison conditions, such as access to medical care and systemic biases, can provide deeper
+ insights. Comparative studies with international datasets may offer a broader perspective on correctional healthcare.
+ In all, our paper aims to strengthen the argument that the lack of attention provided to people in correctional
+ facilities trying to improve their lives has reached an abysmal state. Instead of paying attention to these concerns
+ in society, prisoners are often looked down upon and neglected. Our paper firmly portrays the basic fact that as humans,
+even prisoners have rights to access basic healthcare and clean living conditions that will help them in order to grow
+into better individuals in the right environment.
+
 
 ## Weaknesses
 While our analysis of prisoner mortality provides valuable insights, it is important to acknowledge certain limitations. The binary representation of gender in the original paper oversimplifies a complex spectrum, neglecting nuances beyond the male-female binary.
