@@ -9,11 +9,14 @@ date: today
 date-format: long
 abstract: "This research explores the causes and trends of prisoner deaths in the United States giving insights into their wellbeing in the prisons. We examine these rates both from a comprehensive standpoint and delve into demographic breakdowns, specifically considering gender and race. The paper analyse trends revealing a notable rise in deaths due to cancer and heart diseases. While AIDS-related deaths decline, homicides and drug/alcohol-related deaths show a slight increase. Comparisons across gender highlight differences in causes of death, with males experiencing higher rates of homicide, while females show a greater propensity for suicide. The examination of racial disparities exposes varying leading causes of death, emphasizing the urgent need for targeted interventions to improve the overall wellbeing of incarcerated individuals. The trends uncovered in this paper establish a foundation for further investigations into systemic problems and healthcare disparities in correctional environments."
 format: pdf
-toc: true
 number-sections: true
 bibliography: references.bib
 ---
+\newpage
 
+\tableofcontents
+
+\newpage
 ```{r}
 #| include: false
 #| warning: false
@@ -55,19 +58,19 @@ The rising death rates among prisoners in the challenging environment of America
 and institutional failings. Issues including institutional prejudice and poor healthcare have been brought to light by
 a recent news report. For instance, the article talks about a study which discovered that although 0.85% of Americans
 with asthma were incarcerated, just 0.15% of asthma patients received treatment, an inequality that was more than five
-times higher (Murez_2023). Our goals are to identify the causes of the growing death rate, recognize the influence of
+times higher [@Murez_2023]. Our goals are to identify the causes of the growing death rate, recognize the influence of
 demographics and highlight the significant negative effects of prison circumstances on the mental health of prisoners.
 
 According to the US Justice Department's Office of the Inspector General (OIG), 187 individuals died by suicide inside
 Federal Bureau of Prisons(BoP) institutions between 2014 and 2021. The staff providing psychiatric services in the prisons
 stated that these deaths could have been avoided if the facilities followed protocol and provided inmates with the necessary
 resources and treatment. In addition, the study listed 56 "accidental" fatalities and 89 homicides that occurred during that
-time period. It also claimed that the BoP often neglected to appropriately punish employees for actions that led to the deaths.(Levin 2024)
+time period. It also claimed that the BoP often neglected to appropriately punish employees for actions that led to the deaths [@Levin_2024].
 News reports highlight the critical need for a full understanding of prisoners' problems, going beyond simple statistics.
 This has sparked calls for reform and raised concerns about the efficacy of healthcare in prisons.
 
 Homicides accounted for the second-highest number of fatalities recorded in the survey, with one prisoner, Bulger, being
-beaten to death by other inmates in 2018 (Associated Press_2024). Editorials raise ethical concerns regarding the prison
+beaten to death by other inmates in 2018 [@Associated_Press_2024]. Editorials raise ethical concerns regarding the prison
 system by arguing that inequality in healthcare and the high rate of avoidable diseases among prisoners are reflections
 of larger social issues. Investigative articles highlight patterns of prejudice and neglect while exposing the realities
 of minorities within jails.
