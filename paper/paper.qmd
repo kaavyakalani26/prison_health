@@ -33,25 +33,6 @@ bibliography: references.bib
 # install.packages("here")
 # install.packages("ggplot2")
 # install.packages("readxl")
-
-library(ggplot2)
-library(readxl)
-library(tidyverse)
-library(palmerpenguins)
-#### Preamble ####
-# Purpose: Read the cleaned dataset to use it for the analysis
-# Author: Kaavya Kalani, Monica Sainani, Aamishi Avarsekar
-# Date: 14 February 2024
-# Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca, aamishi.avarsekar@mail.utoronto.ca
-# License: MIT
-# Pre-requisites: run scripts/01-data_cleaning.R
-
-#### Workspace setup ####
-# install.packages("tidyverse")
-# install.packages("knitr")
-# install.packages("here")
-# install.packages("ggplot2")
-# install.packages("readxl")
 # install.packages("gdata")
 # install.packages("dplyr")
 # install.packages("haven")
@@ -144,7 +125,7 @@ practices that prioritize the dignity, safety, and general well-being of people 
 # Data
 
 ## Source
-For this analysis we have used multiple datasets. This paper uses the datasets available in the replication package of the original paper. The author of the original paper has collated a large range of files from multiple sources and we will be using some of the datasets from this collation. The raw datasets obtained from the replication package and cleaned and combined to form the datasets for this paper
+For this analysis we have used multiple datasets. This paper uses the datasets available in the replication package of the original paper. The author of the original paper has collated a large range of files from multiple sources and we will be using some of the datasets from this collation. The raw datasets obtained from the replication package and cleaned and combined to form the datasets for this paper.
 
 ## Methodology
 For this paper, the datasets were cleaned and analysed using the statistical programming software R [@citeR] along with the help tidyverse [@citeTidyverse], knitr [@citeKnitr], ggplot2 [@citeGgplot], here [@citeHere], zoo [@citeZoo], readxl [@citeRead], writexl [@citeWrite] and janitor [@citeJanitor].
@@ -160,6 +141,7 @@ mass-incarceration.xlsx contains three sheets from which we will be using sheet 
 msfp0116stt02data.csv contains counts for causes of deaths of the prisoners for the years 2001, 2006-2016. For our analysis we will not be considering 2001, but only 2006 to 2016 for the trends as it gives us a continuous period to observe trends over.
 
 Cleaning and combining these lead to our  cleaned_health_data_by_year.csv which contains:
+
 - Year (between 2006 to 2016 inclusive)
 - Disease (the cause of death of the prisoner)
 - Count (the number of prisoners who died due the corresponding cause in the corresponding year)
@@ -174,6 +156,7 @@ This dataset is obtained by cleaning the raw msfp0116stt09data.csv file.
 msfp0116stt09data.csv contains counts for  causes of deaths of the prisoners for the years 2001, 2006-2016 but segmented by demographic factors instead of time, such as gender, race, and age. For our analysis, we will be using the stats segmented by gender and race.
 
 The information segmented by race leads to cleaned_health_data_race.csv which contains:
+
 - x1 (The race of the prisoner)
 - Cause (the cause of death of the prisoner)
 - Count (the number of prisoners who died due the corresponding cause in the corresponding year)
@@ -182,6 +165,7 @@ The information segmented by race leads to cleaned_health_data_race.csv which co
 A person becomes an entry in this dataset if they were a prisoner in any of the prisons in the United States of America in 2001 or between 2006 and 2016 inclusive and died in that year. The reason of the death is recorded among the following causes’categories: Illness, Cancer, Heart Diseases, Liver Diseases, Respiratory disease, AIDS-related, Suicide, Drug/alcohol intoxication, Accident, Homicide, All other reasons or illnesses. The race of the person is classified as Black, Hispanic, White or Other
 
 The information segmented by race leads to cleaned_health_data_gender.csv which contains:
+
 - x1 (The gender of the prisoner)
 - Cause (the cause of death of the prisoner)
 - Count (the number of prisoners who died due the corresponding cause in the corresponding year)
@@ -194,7 +178,8 @@ This dataset is obtained by cleaning the raw covidts01.csv file.
 
 covidts01.csv contains the collective number of new cases and case rates per 100,000 among the incarcerated, prison staff, and the general population. The numbers are recorded on a daily basis from April 22, 2020 to the end of August 2020. For our analysis, we just look at the number of new cases per 100,000.
 
-- Cleaning of this file leads to cleaned_covid19_data.csv which contains:
+Cleaning of this file leads to cleaned_covid19_data.csv which contains:
+
 - Date (The date of the new case)
 - New_cases_per_100k (The number of new cases recorded on the specific date per 100k)
 - Group (The group of people the case belonged to)
@@ -203,15 +188,16 @@ A person becomes an entry in this dataset if they were incarcerated or prison st
 
 We will now analyse these datasets to uncover trends and draw conclusions.
 
-# Results
-Based on the original paper’s findings, we decided to further investigate the health and general well-being of prisoners and trends of diseases within prison, causes of death and also the trends of COVID-19 across a 7-day period.
+\newpage
 
+# Results
 
 ```{r}
 #| message: false
 #| echo: false
+#| warning: false
 #| label: fig-overall-death
-#| fig-cap: Causes of deaths among the prisoners
+#| fig-cap: Causes of deaths among the prisoners from 2006 to 2016
 
 # Load cleaned data from CSV
 
@@ -220,24 +206,20 @@ health_data_by_year_long_prop <- read.csv(file=here("data/analysis_data/cleaned_
 # Create the plot
 ggplot(health_data_by_year_long_prop, aes(x = as.numeric(Year), y = Proportion, color = Disease)) +
   geom_line(linewidth = 1.0) +
-  labs(title = "Trends of Diseases by Year",
-       x = "Year",
+  labs(x = "Year",
        y = "Proportion of cases",
        color = "Disease") +
   theme_minimal()
 ```
 
-#Figure 1 
-compares shows the cause of death among prisoners due to diseases. In order to accurately investigate, we adjusted the number of deaths caused by a particular disease by the total number of prisoners recorded for that year. This accounts for the differences in the number of deaths recorded between each cause.
-
-By observing the trends in Figure 1, we can see that the deaths due to cancer and heart diseases is significantly higher compared with other causes. The trends for death due to homicide saw a slight decrease between the later years which is opposite to the rate of deaths caused by suicide. While deaths caused by respiratory diseases remain fairly consistent, there is a gradual increase throughout the years. We can also observe that there is a steady decline in the deaths caused by AIDS. Deaths caused by accident remain fairly uncommon with only a very slight increase in 2012. However, the deaths caused by heart disease remained fairly high yet consistent but saw a steep incline after 2012. The deaths caused by cancer has the highest rate. To take a closer look at this, we can investigate the age-group of the prisoners. 
-
+@fig-overall-death compares shows the cause of death among prisoners due to different causes from 2016 to 2019. We can see that the deaths due to cancer and heart diseases have significantly increased over the years and remain to cause significantly more deaths than any of the other causes. We can also observe that there is a steady decline in the deaths caused by AIDS. The trends for death due to homicide and drug/alcohol usage saw a slight increase over the years. Deaths caused by accident remain fairly uncommon with only a very slight increase in 2012. The other causes have been almost the same with a few spikes over the years.
 
 ```{r}
 #| message: false
 #| echo: false
+#| warning: false
 #| label: fig-covid
-#| fig-cap: Covid trends in the jail
+#| fig-cap: Moving Average of New Daily COVID-19 Cases in 2020
 
 # Load cleaned data
 ts_data <- read.csv(file=here("data/analysis_data/cleaned_covid19_data.csv"), header = TRUE, stringsAsFactors = FALSE)
@@ -253,7 +235,7 @@ ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
   geom_line(linewidth = 0.8) +  # Adjust the line thickness here (e.g., size = 0.8)
   scale_x_date(date_labels = "%B", date_breaks = "1 month", limits = c(min(ts_data$date), max(ts_data$date))) +
   scale_y_continuous(limits = c(0, 150), breaks = seq(0, 150, 25)) +
-  labs(x = NULL, y = "New cases per 100,000", title = "Seven-Day Moving Average of New Daily COVID-19 Cases") +
+  labs(x = "Month in 2020", y = "New cases per 100,000") +
   theme_minimal() +
   geom_vline(xintercept = as.numeric(as.Date(c("2020-04-01", "2020-05-01", "2020-06-01", "2020-07-01", "2020-08-01", "2020-09-01"))),
              linetype = "dashed", color = "gray") +
@@ -264,29 +246,15 @@ ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
 
 ```
 
-#figure 2
-
-
+@fig-covid has been recreated from the original paper. This figure shows the number of new COVID-19 cases per 100,000 from April 22, 2020 to the end of August 2020. We notice that the number of new cases among the incarcerated is significantly more than the number of cases in the prison staff which is significantly more than the ones among the general population. We also see the general population population trend seems smoother compared to trend for the prison staff and the incarcerated.
 
 
 ```{r}
 #| message: false
 #| echo: false
+#| warning: false
 #| label: fig-death-vs-gender
 #| fig-cap: Causes of deaths among the prisoners by gender
-
-cause_mapping <- c(
-  "cancer" = "Cancer",
-  "heart_disease" = "Heart Disease",
-  "liver_disease" = "Liver Disease",
-  "respiratory_disease" = "Respiratory Disease",
-  "aids_related" = "Aid related",
-  "all_other_illnesses" = "All other illnesses",
-  "suicide" = "Suicide",
-  "drug_alcohol_intoxication" = "Drug/Alcohol Intoxication",
-  "accident" = "Accident",
-  "homicide_d" = "Homicide"
-)
 
 # Load cleaned data
 health_demographic_data_clean <- read_csv(file=here("data/analysis_data/cleaned_health_data_gender.csv"))
@@ -294,19 +262,19 @@ health_demographic_data_clean <- read_csv(file=here("data/analysis_data/cleaned_
 # Plot the proportions graph using geom_bar with position = "dodge"
 ggplot(health_demographic_data_clean, aes(x = x1, y = Proportion, fill = Cause)) +
   geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +
-  labs(title = "Proportions of Causes of Death by Category",
-       x = "Gender",
+  labs(x = "Gender",
        y = "Proportion") +
-  scale_fill_discrete(labels = cause_mapping) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-Figure 3 compares the cause of death due to diseases between female and male prisoners. The data in the graph has also been adjusted by proportion of female and male prisoners to account for the low counts of reported diseases in females as well as their population. Both graphs have a similar general unimodal shape. Both sexes have the highest deaths caused by cancer and heart diseases, with males with a slightly higher rate than females. However, the least deaths in females are caused by homicide where its rate is almost negligible. While homicide in males is significantly less compared to other death causes, it is still significantly higher compared to its female counter part. On the other hand, the least deaths in males occurs due to accident. Liver disease and respiratory disease are almost comparable in females whereas for males, there is a steep decline in deaths caused by respiratory diseases in comparison to deaths caused by liver disease.
+
+@fig-death-vs-gender compares the cause of death due to diseases between female and male prisoners. Both graphs have a similar general shape. Both sexes have the highest deaths caused by cancer and heart diseases, with males with a slightly higher rate than females. However, the least deaths in females are caused by homicide where its rate is almost negligible. While homicide in males is significantly less compared to other death causes, it is still significantly higher compared to its female counter part. The proportion of females committing suicide in prison is also higher than males committing suicide. On the other hand, the least deaths in males occurs due to accident. Liver disease and respiratory disease are almost comparable in females whereas for males, deaths caused by respiratory diseases are much lesser than deaths caused by liver disease.
 
 ```{r}
 #| message: false
 #| echo: false
-#| label: fig-death-vs-race-2
+#| warning: false
+#| label: fig-death-vs-race
 #| fig-cap: Causes of deaths among the prisoners by race
 
 # Load cleaned data from CSV
@@ -314,28 +282,17 @@ race_health_data_long <- read.csv(file=here("data/analysis_data/cleaned_health_d
 
 # Create a bar plot showing proportions with black borders
 ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
-  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +  # Add black borders
-  labs(title = "Proportions of Causes of Death by Category",
-       x = "Category",
+  geom_bar(stat = "identity", position = "dodge", color = "black", size = 0.5) +
+  labs(x = "Race",
        y = "Proportion") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-Figure 4 compares the causes of deaths in prison with respect to the different races of the prisoners. It can be observed that the cause of deaths are unimodular across all races but they have different peaks in their modes. Amongst Black prisoners, heart diseases have the highest death rate while in Hispanic, White and other races, cancer has the highest death rate. Amongst the identified races, Hispanic prisoners have the highest suicide and homicide rates and also respiratory diseases. It can also be observed that Black prisoners have the highest rate of aids-related deaths, and White prisoners have the highest rate of deaths caused by heart diseases. While deaths caused by drug/alcohol intoxication remains comparatively low across all races, it is the highest for Hispanic prisoners. Amongst other races, it can be observed that suicide is the highest recorded reason for death which could open way to an analyses for racism within prisons as well.
-
-
-
-
-## Discussion
-
-```
-
+@fig-death-vs-race compares the causes of deaths in prison with respect to the different races of the prisoners. Among Black prisoners, heart diseases have the highest death rate while in Hispanic, White and other races, cancer has the highest death rate. Among the identified races, Hispanic prisoners have the highest suicide and homicide rates and also respiratory diseases. It can also be observed that Black prisoners have the highest rate of aids-related deaths, much higher than any of the other races. Another interesting trend that can be observed is that suicide is much higher as the reason for death for other races than Black, Hispanic and White prisoners.
 
 # Discussion
 
 ## Weaknesses and next steps
-
-# Appendix
 
 # References
