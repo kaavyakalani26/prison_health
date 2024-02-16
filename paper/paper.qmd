@@ -54,30 +54,19 @@ library(here)
 
 # Introduction
 
-The rising death rates among prisoners in the challenging environment of American jails show discrepancies, difficulties,
-and institutional failings. Issues including institutional prejudice and poor healthcare have been brought to light by
-a recent news report. For instance, the article talks about a study which discovered that although 0.85% of Americans
-with asthma were incarcerated, just 0.15% of asthma patients received treatment, an inequality that was more than five
-times higher [@Murez_2023]. Our goals are to identify the causes of the growing death rate, recognize the influence of
-demographics and highlight the significant negative effects of prison circumstances on the mental health of prisoners.
+The rising death rates among prisoners in the challenging environment of American jails show discrepancies, difficulties, and institutional failings. Issues including institutional prejudice and poor healthcare have been brought to light by a recent news report. For instance, the article talks about a study which discovered that although 0.85% of Americans with asthma were incarcerated, just 0.15% of asthma patients received treatment, an inequality that was more than five times higher [@Murez_2023]. Our goals are to identify the causes of the growing death rate, recognize the influence of demographics and highlight the significant negative effects of prison circumstances on the mental health of prisoners.
 
-According to the US Justice Department's Office of the Inspector General (OIG), 187 individuals died by suicide inside
-Federal Bureau of Prisons(BoP) institutions between 2014 and 2021. The staff providing psychiatric services in the prisons
-stated that these deaths could have been avoided if the facilities followed protocol and provided inmates with the necessary
-resources and treatment. In addition, the study listed 56 "accidental" fatalities and 89 homicides that occurred during that
-time period. It also claimed that the BoP often neglected to appropriately punish employees for actions that led to the deaths [@Levin_2024].
-News reports highlight the critical need for a full understanding of prisoners' problems, going beyond simple statistics.
-This has sparked calls for reform and raised concerns about the efficacy of healthcare in prisons.
+According to the US Justice Department's Office of the Inspector General (OIG), 187 individuals died by suicide inside Federal Bureau of Prisons(BoP) institutions between 2014 and 2021. The staff providing psychiatric services in the prisons stated that these deaths could have been avoided if the facilities followed protocol and provided inmates with the necessary resources and treatment. In addition, the study listed 56 "accidental" fatalities and 89 homicides that occurred during that time period. It also claimed that the BoP often neglected to appropriately punish employees for actions that led to the deaths [@Levin_2024].
 
-Homicides accounted for the second-highest number of fatalities recorded in the survey, with one prisoner, Bulger, being
-beaten to death by other inmates in 2018 [@Associated_Press_2024]. Editorials raise ethical concerns regarding the prison
-system by arguing that inequality in healthcare and the high rate of avoidable diseases among prisoners are reflections
-of larger social issues. Investigative articles highlight patterns of prejudice and neglect while exposing the realities
-of minorities within jails.
+News reports highlight the critical need for a full understanding of prisoners' problems, going beyond simple statistics. This has sparked calls for reform and raised concerns about the efficacy of healthcare in prisons.
 
-As we dig deeper, our focus goes beyond statistics, aiming to amplify the voices and experiences of those directly
-affected. This exploration goes beyond the numbers, delving into the personal dimensions of the prison experience and
-laying the groundwork for a comprehensive analysis that seeks to drive change in a system facing significant challenges.
+Homicides accounted for the second-highest number of fatalities recorded in the survey, with one prisoner, Bulger, being beaten to death by other inmates in 2018 [@Associated_Press_2024]. Editorials raise ethical concerns regarding the prison system by arguing that inequality in healthcare and the high rate of avoidable diseases among prisoners are reflections of larger social issues. Investigative articles highlight patterns of prejudice and neglect while exposing the realities of minorities within jails.
+
+As we dig deeper, our focus goes beyond statistics, aiming to uncover trends of causes of prisoner death rates in the United States and examine these death rates both from a comprehensive standpoint and delve into demographic breakdowns, specifically considering gender and race. We also draw in Covid-19 data about new cases to support our analysis of wellbeing in prison.
+
+The paper is further organised into three sections: Data, Results, and Discussion. In the Data section, I discuss how the datasets to be used for the analysis were obtained, pre-processed and cleaned. I will also explain the variables of interest in the datasets for my analysis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses of our analysis.
+
+\newpage
 
 # Data
 
@@ -114,7 +103,7 @@ msfp0116stt09data.csv contains counts for  causes of deaths of the prisoners for
 
 The information segmented by race leads to cleaned_health_data_race.csv which contains:
 
-- x1 (The race of the prisoner)
+- x1 (the race of the prisoner)
 - Cause (the cause of death of the prisoner)
 - Count (the number of prisoners who died due the corresponding cause in the corresponding year)
 - Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
@@ -123,7 +112,7 @@ A person becomes an entry in this dataset if they were a prisoner in any of the 
 
 The information segmented by race leads to cleaned_health_data_gender.csv which contains:
 
-- x1 (The gender of the prisoner)
+- x1 (the gender of the prisoner)
 - Cause (the cause of death of the prisoner)
 - Count (the number of prisoners who died due the corresponding cause in the corresponding year)
 - Proportion (the proportion of prisoners who died due the corresponding cause in the corresponding year)
@@ -137,9 +126,9 @@ covidts01.csv contains the collective number of new cases and case rates per 100
 
 Cleaning of this file leads to cleaned_covid19_data.csv which contains:
 
-- Date (The date of the new case)
-- New_cases_per_100k (The number of new cases recorded on the specific date per 100k)
-- Group (The group of people the case belonged to)
+- Date (the date of the new case)
+- New_cases_per_100k (the number of new cases recorded on the specific date per 100k)
+- Group (the group of people the case belonged to)
 
 A person becomes an entry in this dataset if they were incarcerated or prison staff in any of the prisons or the general population in the United States of America between April 22, 2020 to the end of August 2020 inclusive and contracted Covid-19.
 
@@ -170,6 +159,8 @@ ggplot(health_data_by_year_long_prop, aes(x = as.numeric(Year), y = Proportion, 
 ```
 
 @fig-overall-death compares shows the cause of death among prisoners due to different causes from 2016 to 2019. We can see that the deaths due to cancer and heart diseases have significantly increased over the years and remain to cause significantly more deaths than any of the other causes. We can also observe that there is a steady decline in the deaths caused by AIDS. The trends for death due to homicide and drug/alcohol usage saw a slight increase over the years. Deaths caused by accident remain fairly uncommon with only a very slight increase in 2012. The other causes have been almost the same with a few spikes over the years.
+
+\newpage
 
 ```{r}
 #| message: false
@@ -205,6 +196,7 @@ ggplot(ts_data, aes(x = date, y = new_cases_per_100k, color = group)) +
 
 @fig-covid has been recreated from the original paper. This figure shows the number of new COVID-19 cases per 100,000 from April 22, 2020 to the end of August 2020. We notice that the number of new cases among the incarcerated is significantly more than the number of cases in the prison staff which is significantly more than the ones among the general population. We also see the general population population trend seems smoother compared to trend for the prison staff and the incarcerated.
 
+\newpage
 
 ```{r}
 #| message: false
@@ -226,6 +218,8 @@ ggplot(health_demographic_data_clean, aes(x = x1, y = Proportion, fill = Cause))
 ```
 
 @fig-death-vs-gender compares the cause of death due to diseases between female and male prisoners. Both graphs have a similar general shape. Both sexes have the highest deaths caused by cancer and heart diseases, with males with a slightly higher rate than females. However, the least deaths in females are caused by homicide where its rate is almost negligible. While homicide in males is significantly less compared to other death causes, it is still significantly higher compared to its female counter part. The proportion of females committing suicide in prison is also higher than males committing suicide. On the other hand, the least deaths in males occurs due to accident. Liver disease and respiratory disease are almost comparable in females whereas for males, deaths caused by respiratory diseases are much lesser than deaths caused by liver disease.
+
+\newpage
 
 ```{r}
 #| message: false
@@ -250,6 +244,18 @@ ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
 
 # Discussion
 
-## Weaknesses and next steps
+## Weaknesses
+While our analysis of prisoner mortality provides valuable insights, it is important to acknowledge certain limitations. The binary representation of gender in the original paper oversimplifies a complex spectrum, neglecting nuances beyond the male-female binary.
+
+Additionally, the absence of data beyond 2016 restricts our ability to capture recent developments, and the lack of detailed information about other races limits a comprehensive understanding of racial disparities.
+
+Also, the datasets’ focus on co-ed adult prisons overlooks the diverse landscape of correctional facilities, including juvenile and gender-specific institutions, which could yield distinct insights.
+
+Furthermore, the dataset gives collective information about the prisons in the US. The inclusion of regional split information could help us uncover regional variations in behavior and pre-existing medical conditions to name a few factors.
+
+Lastly, exploring the intersectionality of race and gender would provide a more nuanced understanding of the complex factors influencing prisoner mortality.
+
+## Next Steps
+To take our study one step beyond, we could look for datasets that would fulfill the weaknesses of our datasets and combine that with our existing data. This could strengthen the general investigation that we are trying to make. We could also explore the data of other countries with either similar geography or demographic to compare how each of the prison systems perform under the general well-being category.
 
 # References
