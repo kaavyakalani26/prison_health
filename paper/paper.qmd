@@ -4,7 +4,7 @@ author:
   - Monica Sainani
   - Kaavya Kalani
   - Aamishi Avarsekar
-thanks: "Code and data are available at: https://github.com/kaavyakalani26/prison_health.git and replication aspects are available at: https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index"
+thanks: "Code and data are available at: [https://github.com/kaavyakalani26/prison_health.git](https://github.com/kaavyakalani26/prison_health.git) and replication aspects are available at: [https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index](https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index)"
 date: today
 date-format: long
 abstract: "This research explores the causes and trends of prisoner deaths in the United States giving insights into their wellbeing in the prisons. We examine these rates both from a comprehensive standpoint and delve into demographic breakdowns, specifically considering gender and race. The paper analyse trends revealing a notable rise in deaths due to cancer and heart diseases. While AIDS-related deaths decline, homicides and drug/alcohol-related deaths show a slight increase. Comparisons across gender highlight differences in causes of death, with males experiencing higher rates of homicide, while females show a greater propensity for suicide. The examination of racial disparities exposes varying leading causes of death, emphasizing the urgent need for targeted interventions to improve the overall wellbeing of incarcerated individuals. The trends uncovered in this paper establish a foundation for further investigations into systemic problems and healthcare disparities in correctional environments."
@@ -242,7 +242,12 @@ ggplot(race_health_data_long, aes(x = x1, y = Proportion, fill = Cause)) +
 
 @fig-death-vs-race compares the causes of deaths in prison with respect to the different races of the prisoners. Among Black prisoners, heart diseases have the highest death rate while in Hispanic, White and other races, cancer has the highest death rate. Among the identified races, Hispanic prisoners have the highest suicide and homicide rates and also respiratory diseases. It can also be observed that Black prisoners have the highest rate of aids-related deaths, much higher than any of the other races. Another interesting trend that can be observed is that suicide is much higher as the reason for death for other races than Black, Hispanic and White prisoners.
 
+\newpage
+
 # Discussion
+
+## Learnings and Inferences
+
 In this paper, the issue of mortality rates among U.S. inmates is analyzed and conducted.
 There are multiple datasets that have been utilized to investigate demographic differences, causes of death,
 and the potential impact of prison conditions. We also looked at the impact of the COVID-19 pandemic.
