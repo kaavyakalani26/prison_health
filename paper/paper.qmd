@@ -1,5 +1,5 @@
 ---
-title: "Behind Bars: Statistical Insights into the Wellbeing of U.S. Prisoners"
+title: "Behind Bars: Insights into the Wellbeing of U.S. Prisoners"
 author:
   - Monica Sainani
   - Kaavya Kalani
@@ -7,21 +7,7 @@ author:
 thanks: "Code and data are available at: https://github.com/kaavyakalani26/prison_health.git and replication aspects are available at: https://www.socialsciencereproduction.org/reproductions/82b709e2-4aa0-40e8-8abe-195c51ae739b/index"
 date: today
 date-format: long
-abstract: "This research explores the causes, consequences, and demographics of prisoner deaths in the United States.
-It reveals an increasing trend in the death of prisoners, highlighting heart problems and cancer as major causes.
-The frequency of cancer is shown by demographic study, with Black, Hispanic, and White inmates being most affected.
-The significant impact that prison staff has on the wellbeing of inmates is highlighted by gender-based differences
-in the availability of medical treatment and institutional discrimination.
-
-The study acknowledges the shortcomings in demographic representation and argues for a larger dataset.
-The study intends to shed light on aspects such as racism and hate crimes in correctional settings, underscoring the
-need for inclusive statistics on racial and sexual minorities. The request for more datasets is meant to strengthen the
- research and provide a more comprehensive comprehension of the complex relationship between conditions in jail and overall health.
-
-In addition, the report recommends cross-national comparisons and an analysis of the criminal justice systems in
-countries with similar populations in order to evaluate general well-being and pandemic readiness. The study provides
-insight into the difficulties faced by prisoners and establishes a foundation for further investigations into systemic
-problems and healthcare disparities in correctional environments."
+abstract: "This research explores the causes and trends of prisoner deaths in the United States giving insights into their wellbeing in the prisons. We examine these rates both from a comprehensive standpoint and delve into demographic breakdowns, specifically considering gender and race. The paper analyse trends revealing a notable rise in deaths due to cancer and heart diseases. While AIDS-related deaths decline, homicides and drug/alcohol-related deaths show a slight increase. Comparisons across gender highlight differences in causes of death, with males experiencing higher rates of homicide, while females show a greater propensity for suicide. The examination of racial disparities exposes varying leading causes of death, emphasizing the urgent need for targeted interventions to improve the overall wellbeing of incarcerated individuals. The trends uncovered in this paper establish a foundation for further investigations into systemic problems and healthcare disparities in correctional environments."
 format: pdf
 toc: true
 number-sections: true
